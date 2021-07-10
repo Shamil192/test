@@ -56,6 +56,7 @@ const useInput = (initialValue, validations) => {
 };
 function Form() {
   const [success, setSuccess] = useState(false);
+  const [fioValue, setFioValue] = useState(false);
 
   const tel = useInput("", { isEmpty: true, isTel: false });
   const gender = useInput("", { isEmpty: true });
@@ -66,6 +67,9 @@ function Form() {
   const submitHandler = (e) => {
     e.preventDefault();
     setSuccess(true);
+  };
+  const fioInputHandler = () => {
+    setFioValue(true);
   };
 
   return (
@@ -78,7 +82,7 @@ function Form() {
         )}
         <h4>Заполните форму для регистрации</h4>
         <hr />
-        <form action='/'>
+        <form action="/">
           <div className="container px-5" style={{ width: "700px" }}>
             <div className="form-group mx-5">
               <label htmlFor="fio">ФИО</label>
@@ -89,6 +93,8 @@ function Form() {
                 name="fio"
                 showNote={false}
                 placeholder="Иванов Иван Иванович..."
+                value={fioValue}
+                onChange={fioInputHandler}
               />
             </div>
             <div className="form-group mx-5  my-5">
@@ -199,7 +205,8 @@ function Form() {
               group.inputValid ||
               gender.inputValid ||
               date.inputValid ||
-              doctor.inputValid
+              doctor.inputValid ||
+              !fioValue
             }
             className="btn btn-success"
           >
@@ -209,7 +216,8 @@ function Form() {
           group.inputValid ||
           gender.inputValid ||
           date.inputValid ||
-          doctor.inputValid ? (
+          doctor.inputValid ||
+          !fioValue ? (
             <div style={{ color: "red" }}>Заполните все поля</div>
           ) : null}
         </form>
